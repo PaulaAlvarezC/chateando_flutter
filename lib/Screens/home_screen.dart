@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gradient_app_bar/flutter_gradient_app_bar.dart';
+import '../Pages/chat_page.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget { 
+  const HomeScreen({super.key});
 
   @override
-  HomeScreenState createState() => HomeScreenState();
+   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class HomeScreenState extends State<HomeScreen>  with SingleTickerProviderStateMixin {
+class _HomeScreenState extends State<HomeScreen>  with SingleTickerProviderStateMixin {
   late TabController _controller;
   @override
   void initState(){
@@ -26,14 +27,42 @@ class HomeScreenState extends State<HomeScreen>  with SingleTickerProviderStateM
             icon: const Icon(Icons.search), // Añade 'const' aquí
             onPressed: () {},
           ),
-          IconButton(
-            icon: const Icon(Icons.more_vert), // Añade 'const' aquí
-            onPressed: () {},
+          PopupMenuButton<String>(
+            icon: const Icon(Icons.more_vert,color: Colors.white),
+            onSelected: (value){
+              print(value);
+
+            },
+            itemBuilder: (BuildContext context){
+            return const [
+              PopupMenuItem(
+                value: "New group",
+                child: Text("New group"),
+              ),
+             PopupMenuItem(
+                value: "New broadcast",
+                child: Text("New broadcast"),
+              ),
+              PopupMenuItem(
+                value: "Chateando Web",
+                child: Text("Chateando Web"),
+              ),
+              PopupMenuItem(
+                value: "Starred messages",
+                child: Text("Starred messages"),
+              ),
+              PopupMenuItem(
+                value: "Settings",
+                child: Text("Settings"),
+              ),
+            ];
+          },
           ),
+          
         ],
         bottom: TabBar(
           controller: _controller,
-          indicatorColor: Colors.grey,
+          indicatorColor: Colors.white,
           labelColor: Colors.white,
           unselectedLabelColor: Colors.grey,
           tabs: const [
@@ -59,7 +88,7 @@ class HomeScreenState extends State<HomeScreen>  with SingleTickerProviderStateM
         controller: _controller,
         children: const [
          Text("Camera"),
-         Text("Chats"),
+         ChatPage(),
          Text("Status"),
          Text("Calls"),
 
